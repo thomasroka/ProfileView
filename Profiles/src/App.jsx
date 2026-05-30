@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Profile from './Components/Profile'
 import ProfileContent from './Components/ProfileContent'
+import Demo from './Components/Demo'
 function App() {
   return(
     <>
