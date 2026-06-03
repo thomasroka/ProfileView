@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState, useEffect } from 'react'
+
 import Profile from './Profile';
 const ProfileContent = () => {
     const [users, setUsers]=useState([]);
@@ -28,7 +29,6 @@ const ProfileContent = () => {
             catch(error){
                 console.log(error);
             }
-          
         }
          fetchUser();
        
@@ -41,15 +41,17 @@ const ProfileContent = () => {
         );
         setfilteredData(filtered);
             }, 500);
-          
         return()=>{
             clearTimeout(searchResult);
         }
     },[searchValue])
     function handleSearchFilter(name){
        setSearchValue(name);
-       setIndividual(true);
-        setfilteredData([]);
+       if(searchValue.length>0){
+        setIndividual(true);
+       }else{
+        setIndividual(false);
+       }
     }
   return (
     <div>
@@ -57,20 +59,18 @@ const ProfileContent = () => {
         <div>
             <label htmlFor="" className='text-xl m-8'> Search</label>
             <input className="h-10 w-80 rounded-sm p-4 border-2 border-black/60"type="text" placeholder='Enter profiles to search'value={searchValue} onChange={(e)=>{setSearchValue(e.target.value)}} />
-           
         </div>
         <div>
             <ul>
-             {!individual && filteredData.map((item,index)=>{ return<li key={item.id} onClick={()=>{handleSearchFilter(item.name)}}>{item.name}</li>})} 
+             {searchValue>0 && filteredData.map((item,index)=>{ return<li key={item.id} onClick={()=>{handleSearchFilter(item.name)}}>{item.name}</li>})} 
             </ul>
         </div>
          <div className='flex flex-row flex-wrap'>
-       {individual ?  filteredData.map((items)=>{return <Profile key={items.id} name={items.name}/>}) : searchValue.length>0?  filteredData.map((items)=>{return <Profile key={items.id} name={items.name}/>}): users.slice(0,visibleUser).map((items,index)=>{return <Profile key={items.id} name={items.name}/>}) }
+       {individual ?  filteredData.map((items)=>{return <Profile key={items.id} name={items.name}/>}) : searchValue.length>0?  filteredData.map((items)=>{return <Profile key={items.id} name={items.name}/>}): users.slice(0,visibleUser).map((items,index)=>{return <Profile key={items.id} name={items.name} id={items.id}/>}) }
         </div>
         <button onClick={handleDisplay}>{display?"Show Less":"ShowAll"}</button>
     </div>
   )
    
 }
-
 export default ProfileContent

@@ -1,9 +1,14 @@
 import React from 'react'
 import { BsPersonFill } from "react-icons/bs";
-const Profile = ({name}) => {
+import {useNavigate} from "react-router-dom";
+import { useEffect,useState } from 'react';
+import FullProfile from './FullProfile';
+const Profile = ({name,id}) => {
+    const navigate= useNavigate();
+    
   return (
     <div>
-        <div className='border-2 border-black/50 h-95 w-100 bg-gray-300/35 rounded-2xl m-8'> <div className='h-60 w-70 bg-red-400  my-8 mx-14 rounded-xl flex flex-row justify-center items-center'>
+        <div onClick={(()=>{navigate(`/profile/${id}`)})} className='border-2 border-black/50 h-95 w-100 bg-gray-300/35 rounded-2xl m-8'> <div className='h-60 w-70 bg-red-400  my-8 mx-14 rounded-xl flex flex-row justify-center items-center'>
             <BsPersonFill size={200} />
            
         </div>
